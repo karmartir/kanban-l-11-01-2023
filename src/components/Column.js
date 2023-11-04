@@ -5,10 +5,15 @@ import {connect} from "react-redux";
 const Column = ({status, tasks}) => {
     return (
 
-            <div className="col">
-              <h3>{status.status}</h3>
-                {tasks.map(task => <Card key={task.id} task={task}/>)}
-            </div>
+        <div className="col">
+            <h3>{status.status}</h3>
+            {tasks.filter((task) =>
+                task.status.toLowerCase() === status.status.toLowerCase()).map((task) =>
+                    <Card
+                        key={task.id}
+                        task={task}
+                    />)}
+        </div>
 
     );
 };
