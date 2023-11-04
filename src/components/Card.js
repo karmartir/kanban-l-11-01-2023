@@ -1,7 +1,11 @@
 import React from 'react';
+import {connect} from "react-redux";
+import DeleteModal from "../DeleteModal";
 
 const Card = (props) => {
-    const task = props.task
+    const {task, changePriority, priorities} = props
+
+
     return (
         <div className="card">
             <div className="card-body">
@@ -11,20 +15,45 @@ const Card = (props) => {
             <ul className="list-group list-group-flush">
                <div style={{display: 'flex', justifyContent:'center'}}>
 
-                <button type='button' className='btn btn-success'> ↑</button>
+                <button
+                    onClick={() => changePriority(task.id, 'up')}
+                    type='button' className='btn btn-success'
+                    disabled={task.priority=== priorities[priorities.length-1]}
+                >
+                    ↑
+                </button>
+
                 <li className="list-group-item">priority: {task.priority}</li>
-                <button type='button' className='btn btn-success'> ↓</button>
+                <button
+                    onClick={() => changePriority(task.id, 'down')}
+                    type='button'
+                    className='btn btn-success'
+                    disabled={task.priority===priorities[0]}
+                >
+                    ↓
+                </button>
 
                </div>
                 <li className="list-group-item">status: {task.status}</li>
             </ul>
             <div className="card-body" style={{display: 'flex'}}>
                 <button type='button' className='btn btn-success'> ←</button>
-                <button type='button' className='btn btn-danger'> Delete</button>
+
+
+               <DeleteModal task={task}/>
+
                 <button type='button' className='btn btn-success'> →</button>
                 <button type='button' className='btn btn-info'> Info</button>
             </div>
         </div>
     );
 };
-export default Card;
+
+const mapStateToProps = (state) => ({
+    priorities: state.priorities
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    changePriority: (taskId, direction) => dispatch({type: 'CHANGE_PRIORITY', payload: {id: taskId, direction}})
+})
+export default connect(mapStateToProps, mapDispatchToProps) (Card);
