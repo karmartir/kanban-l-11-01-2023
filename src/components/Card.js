@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import DeleteModal from "../DeleteModal";
 
 const Card = (props) => {
-    const {task, changePriority, priorities} = props
+    const {task, changePriority, priorities, moveTask} = props
 
 
     return (
@@ -37,12 +37,12 @@ const Card = (props) => {
                 <li className="list-group-item">status: {task.status}</li>
             </ul>
             <div className="card-body" style={{display: 'flex'}}>
-                <button type='button' className='btn btn-success'> ←</button>
+                <button onClick={() => moveTask('left', task.status, task.id)} type='button' className='btn btn-success'> ←</button>
 
 
                <DeleteModal task={task}/>
 
-                <button type='button' className='btn btn-success'> →</button>
+                <button onClick={() => moveTask('right', task.status, task.id)} type='button' className='btn btn-success'> →</button>
                 <button type='button' className='btn btn-info'> Info</button>
             </div>
         </div>
@@ -54,6 +54,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    changePriority: (taskId, direction) => dispatch({type: 'CHANGE_PRIORITY', payload: {id: taskId, direction}})
+    changePriority: (taskId, direction) => dispatch({type: 'CHANGE_PRIORITY', payload: {id: taskId, direction}}),
+    moveTask: (direction, taskStatus, taskId) => dispatch({type: 'MOVE_TASK', payload: {status:taskStatus, direction, id: taskId}})
 })
 export default connect(mapStateToProps, mapDispatchToProps) (Card);

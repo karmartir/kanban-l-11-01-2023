@@ -8,7 +8,7 @@ const Column = ({status, tasks}) => {
         <div className="col">
             <h3>{status.status}</h3>
             {tasks.filter((task) =>
-                task.status.toLowerCase() === status.status.toLowerCase()).map((task) =>
+                task.status === status.status).map((task) =>
                     <Card
                         key={task.id}
                         task={task}

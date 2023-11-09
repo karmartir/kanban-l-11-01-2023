@@ -4,19 +4,19 @@ const initialState = {
     boardStatuses: [
         {
             id: '1',
-            status: 'Todo'
+            status: 'todo'
         },
         {
             id: '2',
-            status: 'In progress'
+            status: 'in progress'
         },
         {
             id: '3',
-            status: 'In review'
+            status: 'in review'
         },
         {
             id: '4',
-            status: 'Done'
+            status: 'done'
         },
 
     ],
@@ -46,7 +46,7 @@ const kanban = (state = initialState, action) => {
     switch (action.type) {
 
         case 'DELETE_TASK':
-            const  updatedTasks = state.tasks.filter(task => task.id !== action.payload)
+            const updatedTasks = state.tasks.filter(task => task.id !== action.payload)
             return {...state, tasks: updatedTasks}
 
         case 'CHANGE_PRIORITY':
@@ -55,6 +55,18 @@ const kanban = (state = initialState, action) => {
                 task.id === action.payload.id ?
                     {...task, priority: task.priority + value} : task)
             return {...state, tasks: newTasks}
+
+        case 'MOVE_TASK':
+            const stringArrayStatuses = state.boardStatuses.map(el => el.status)
+            const currentStatusIndex = stringArrayStatuses.indexOf(action.payload.status)
+            const newStatusIndex = currentStatusIndex + (action.payload.direction === 'left' ? -1 : 1)
+            const newStatus = stringArrayStatuses[newStatusIndex]
+            const newTasks2 = state.tasks.map(el => el.id === action.payload.id ? {...el, status: newStatus} : el)
+            return {...state, tasks: newTasks2}
+
+
+
+
 
         default:
             return state
