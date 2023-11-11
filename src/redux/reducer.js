@@ -1,42 +1,21 @@
 const initialState = {
-    appName: 'Kanban Board',
-    priorities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    boardStatuses: [
-        {
-            id: '1',
-            status: 'todo'
-        },
-        {
-            id: '2',
-            status: 'in progress'
-        },
-        {
-            id: '3',
-            status: 'in review'
-        },
-        {
-            id: '4',
-            status: 'done'
-        },
 
+    appName: 'Kanban Board',
+
+    priorities: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+
+    boardStatuses: [
+        {id: '1', status: 'todo'},
+        {id: '2', status: 'in progress'},
+        {id: '3', status: 'in review'},
+        {id: '4', status: 'done'},
     ],
+
     tasks: [
         {name: 'learn redux', id: 111, description: 'do kanban with redux', priority: 1, status: 'todo'},
         {name: 'learn axios', id: 112, description: 'do kanban with server', priority: 3, status: 'in progress'},
-        {
-            name: 'learn typeScript',
-            id: 113,
-            description: 'do homework with typescript',
-            priority: 2,
-            status: 'in progress'
-        },
-        {
-            name: 'learn graphQL',
-            id: 114,
-            description: 'learn documentation, watch tutorial',
-            priority: 4,
-            status: 'in review'
-        },
+        {name: 'learn typeScript', id: 113, description: 'do homework with typescript', priority: 2, status: 'in progress'},
+        {name: 'learn graphQL', id: 114, description: 'learn documentation, watch tutorial', priority: 4, status: 'in review'},
         {name: 'learn unit tests', id: 115, description: 'join to webinars', priority: 1, status: 'done'},
         {name: 'find a job', id: 116, description: 'good salary, remote, interesting', priority: 1, status: 'done'},
     ],
