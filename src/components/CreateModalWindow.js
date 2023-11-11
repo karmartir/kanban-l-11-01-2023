@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input} from 'reactstrap';
 import {connect} from "react-redux";
 
-function CreateModalWindow({statuses, priorities}) {
+function CreateModalWindow({statuses, priorities, createTask}) {
     const [modal, setModal] = useState(false);
     const initialState = {name: '', description: '', status: statuses[0].status, priority: priorities[0]}
     const [newTask, setNewTask] = useState(initialState)
 
     const toggle = () => setModal(!modal);
-    const onCreate = (newTask) => {
-
+    const onCreate = () => {
+        createTask({...newTask, id: Date.now()})
         toggle()
     }
   /*  console.log(newTask)*/
     return (
         <div>
-            <Button color="danger" onClick={toggle}>
+            <Button color="danger" onClick={onCreate}>
                 Create new task
             </Button>
             <Modal isOpen={modal} toggle={toggle}>
@@ -99,6 +99,6 @@ const mapStateToProps = (state) => ({
     priorities: state.priorities
 })
 const mapDispatchToProps = (dispatch) => ({
-    deleteTask: (taskId) => dispatch({type: 'DELETE_TASK', payload: taskId})
+    createTask: (newTask) => dispatch({type: 'CREATE_TASK', payload: newTask})
 })
 export default connect(mapStateToProps, mapDispatchToProps)(CreateModalWindow);

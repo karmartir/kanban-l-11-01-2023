@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 import DeleteModal from "../DeleteModal";
+import UpdateTaskModal from "./UpdateModalWindow";
+
 
 const Card = (props) => {
     const {task, changePriority, priorities, moveTask, statuses} = props
@@ -45,7 +47,14 @@ const Card = (props) => {
                     ←
                 </button>
 
-                 <button type='button' className='btn btn-info'> Update </button>
+                 <button
+                     type='button'
+                     className='btn btn-info'
+                 >
+                     Update
+                 </button>
+
+                <UpdateTaskModal/>
 
                <DeleteModal task={task}/>
 
