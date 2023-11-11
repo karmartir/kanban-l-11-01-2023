@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input} from 'reactstrap';
 import {connect} from "react-redux";
 
@@ -8,14 +8,21 @@ function CreateModalWindow({statuses, priorities, createTask}) {
     const [newTask, setNewTask] = useState(initialState)
 
     const toggle = () => setModal(!modal);
+
+    const blankCheck = () => {
+        if (newTask.name !== '') {
+            onCreate()
+        }
+        toggle()
+        setNewTask(initialState)
+    }
     const onCreate = () => {
         createTask({...newTask, id: Date.now()})
-        toggle()
     }
-  /*  console.log(newTask)*/
+    /*  console.log(newTask)*/
     return (
         <div>
-            <Button color="danger" onClick={onCreate}>
+            <Button color="danger" onClick={blankCheck}>
                 Create new task
             </Button>
             <Modal isOpen={modal} toggle={toggle}>
@@ -23,24 +30,24 @@ function CreateModalWindow({statuses, priorities, createTask}) {
                 <ModalBody>
 
                     <Form>
-                         <FormGroup>
+                        <FormGroup>
                             <Label for="examplePassword">
-                              Task name
+                                Task name
                             </Label>
                             <Input
                                 placeholder="Enter task name here..."
                                 value={newTask.name}
-                                onChange={(event) => setNewTask({...newTask, name: event.target.value}) }
+                                onChange={(event) => setNewTask({...newTask, name: event.target.value})}
                             />
                         </FormGroup>
                         <FormGroup>
                             <Label for="exampleSelect">
-                               Status
+                                Status
                             </Label>
                             <Input
                                 type="select"
                                 value={newTask.status}
-                                onChange={(event) => setNewTask({...newTask, status: event.target.value}) }
+                                onChange={(event) => setNewTask({...newTask, status: event.target.value})}
                             >
                                 {statuses.map(el =>
                                     <option key={el.id}>{el.status}</option>)}
@@ -50,16 +57,16 @@ function CreateModalWindow({statuses, priorities, createTask}) {
 
                         <FormGroup>
                             <Label for="exampleSelect">
-                               Priority
+                                Priority
                             </Label>
                             <Input
 
                                 type="select"
                                 value={newTask.priority}
-                                onChange={e => setNewTask({...newTask, priority: e.target.value})}
+                                onChange={e => setNewTask({...newTask, priority: +e.target.value})}
                             >
                                 {priorities.map((el, index) =>
-                                    <option key={index}>{el}</option> )}
+                                    <option key={index}>{el}</option>)}
 
 
                             </Input>
@@ -67,7 +74,7 @@ function CreateModalWindow({statuses, priorities, createTask}) {
 
                         <FormGroup>
                             <Label for="exampleText">
-                               Description
+                                Description
                             </Label>
                             <Input
                                 type="textarea"
@@ -82,7 +89,7 @@ function CreateModalWindow({statuses, priorities, createTask}) {
                 <ModalFooter>
                     <Button
                         color="danger"
-                        onClick={() => onCreate()}
+                        onClick={() => blankCheck()}
                     >
                         Create
                     </Button>{' '}
@@ -94,6 +101,7 @@ function CreateModalWindow({statuses, priorities, createTask}) {
         </div>
     );
 }
+
 const mapStateToProps = (state) => ({
     statuses: state.boardStatuses,
     priorities: state.priorities

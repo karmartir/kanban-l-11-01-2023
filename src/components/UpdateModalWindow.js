@@ -104,6 +104,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateModalWindow);
 */
+/*
 
 import React, {useState} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input} from 'reactstrap';
@@ -236,4 +237,4 @@ const mapDispatchToProps = (dispatch) => ({
     })
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateTaskModal);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateTaskModal);*/

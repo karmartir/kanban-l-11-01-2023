@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import DeleteModal from "../DeleteModal";
-import UpdateTaskModal from "./UpdateModalWindow";
+import DeleteModal from "./DeleteModal";
 
 
 const Card = (props) => {
@@ -9,7 +8,7 @@ const Card = (props) => {
  /*   console.log(statuses[statuses.length-1].status)*/
 
     return (
-        <div className="card">
+        <div className="card" style={{marginBottom: '20px'}}>
             <div className="card-body">
                 <h5 className="card-title">{task.name}</h5>
                 <p className="card-text">{task.description} </p>
@@ -54,7 +53,7 @@ const Card = (props) => {
                      Update
                  </button>
 
-                <UpdateTaskModal/>
+
 
                <DeleteModal task={task}/>
 
