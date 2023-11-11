@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import DeleteModal from "../DeleteModal";
 
 const Card = (props) => {
-    const {task, changePriority, priorities, moveTask} = props
-
+    const {task, changePriority, priorities, moveTask, statuses} = props
+ /*   console.log(statuses[statuses.length-1].status)*/
 
     return (
         <div className="card">
@@ -36,21 +36,36 @@ const Card = (props) => {
                </div>
                 <li className="list-group-item">status: {task.status}</li>
             </ul>
-            <div className="card-body" style={{display: 'flex'}}>
-                <button onClick={() => moveTask('left', task.status, task.id)} type='button' className='btn btn-success'> ←</button>
+            <div className="card-body" style={{display: 'flex', justifyContent: 'center'}}>
 
+                <button onClick={() => moveTask('left', task.status, task.id)}
+                        type='button' className='btn btn-success'
+                        disabled={statuses[0].status === task.status}
+                >
+                    ←
+                </button>
+
+                 <button type='button' className='btn btn-info'> Update </button>
 
                <DeleteModal task={task}/>
 
-                <button onClick={() => moveTask('right', task.status, task.id)} type='button' className='btn btn-success'> →</button>
-                <button type='button' className='btn btn-info'> Info</button>
+
+
+                <button onClick={() => moveTask('right', task.status, task.id)}
+                        type='button' className='btn btn-success'
+                        disabled={statuses[statuses.length -1].status === task.status}>
+                    →
+                </button>
+
+
             </div>
         </div>
     );
 };
 
 const mapStateToProps = (state) => ({
-    priorities: state.priorities
+    priorities: state.priorities,
+    statuses: state.boardStatuses
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -36,6 +36,7 @@ const kanban = (state = initialState, action) => {
             return {...state, tasks: newTasks}
 
         case 'MOVE_TASK':
+           /* if(state.boardStatuses[0].status === action.payload.status) {return}*/
             const stringArrayStatuses = state.boardStatuses.map(el => el.status)
             const currentStatusIndex = stringArrayStatuses.indexOf(action.payload.status)
             const newStatusIndex = currentStatusIndex + (action.payload.direction === 'left' ? -1 : 1)

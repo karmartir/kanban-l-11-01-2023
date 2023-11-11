@@ -12,6 +12,7 @@ const Column = ({status, tasks}) => {
                     <Card
                         key={task.id}
                         task={task}
+                        status={status}
                     />)}
         </div>
 

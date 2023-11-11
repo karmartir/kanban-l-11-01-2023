@@ -8,11 +8,11 @@ function CreateModalWindow({statuses, priorities}) {
     const [newTask, setNewTask] = useState(initialState)
 
     const toggle = () => setModal(!modal);
-    const onCreate = () => {
+    const onCreate = (newTask) => {
 
         toggle()
     }
-    console.log(newTask)
+  /*  console.log(newTask)*/
     return (
         <div>
             <Button color="danger" onClick={toggle}>
