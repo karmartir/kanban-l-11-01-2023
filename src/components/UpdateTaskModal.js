@@ -14,14 +14,21 @@ function UpdateTaskModal({statuses, priorities, updateTask, task}) {
         if (updatedTask.name !== '') {
             onUpdate()
         }
-        toggle()
         setUpdatedTask(initialState)
+        toggle()
     }
 
     const onUpdate = () => {
         updateTask(updatedTask)
         toggle()
     }
+
+
+    const onCancel = () => {
+        setUpdatedTask(initialState)
+        toggle()
+    }
+    
     /*  console.log(newTask)*/
     return (
         <div>
@@ -101,7 +108,7 @@ function UpdateTaskModal({statuses, priorities, updateTask, task}) {
                     >
                         Update
                     </Button>{' '}
-                    <Button color="secondary" onClick={toggle}>
+                    <Button color="secondary" onClick={onCancel}>
                         Cancel
                     </Button>
                 </ModalFooter>
