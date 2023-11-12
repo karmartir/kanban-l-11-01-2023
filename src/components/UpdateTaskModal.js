@@ -9,13 +9,15 @@ function UpdateTaskModal({statuses, priorities, updateTask, task}) {
 
     const toggle = () => setModal(!modal);
 
-/*    const blankCheck = () => {
+    //I'm added this part to avoid input update by empty strings!!! Task will remain same in that case.
+    const blankCheck = () => {
         if (updatedTask.name !== '') {
             onUpdate()
         }
         toggle()
         setUpdatedTask(initialState)
-    }*/
+    }
+
     const onUpdate = () => {
         updateTask(updatedTask)
         toggle()
@@ -26,7 +28,7 @@ function UpdateTaskModal({statuses, priorities, updateTask, task}) {
             <button
                 type='button'
                 className='btn btn-info'
-                onClick={onUpdate}
+                onClick={blankCheck}
             >
                 Update
             </button>
@@ -95,7 +97,7 @@ function UpdateTaskModal({statuses, priorities, updateTask, task}) {
                 <ModalFooter>
                     <Button
                         color="danger"
-                        onClick={() => onUpdate()}
+                        onClick={() => blankCheck()}
                     >
                         Update
                     </Button>{' '}
