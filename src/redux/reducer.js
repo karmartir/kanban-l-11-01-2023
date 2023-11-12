@@ -26,10 +26,7 @@ const kanban = (state = initialState, action) => {
 
         case 'CREATE_TASK':
             return {...state, tasks: [...state.tasks, action.payload]}
-          /*  const newTask = {id: crypto.randomUUID(), name: action.payload}
-            const updatedNewTasks = [...state.tasks, newTask]
-            return {...state, tasks: updatedNewTasks}
-*/
+
         case 'UPDATE_TASK':
             const updatedTasks2 = state.tasks.map(task =>
                 task.id === action.payload.id ? {...task, ...action.payload} : task)

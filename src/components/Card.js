@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from "react-redux";
 import DeleteModal from "./DeleteModal";
+import UpdateTaskModal from "./UpdateTaskModal";
 
 
 const Card = (props) => {
     const {task, changePriority, priorities, moveTask, statuses} = props
- /*   console.log(statuses[statuses.length-1].status)*/
+    /*   console.log(statuses[statuses.length-1].status)*/
 
     return (
         <div className="card" style={{marginBottom: '20px'}}>
@@ -14,27 +15,27 @@ const Card = (props) => {
                 <p className="card-text">{task.description} </p>
             </div>
             <ul className="list-group list-group-flush">
-               <div style={{display: 'flex', justifyContent:'center'}}>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
 
-                <button
-                    onClick={() => changePriority(task.id, 'up')}
-                    type='button' className='btn btn-success'
-                    disabled={task.priority=== priorities[priorities.length-1]}
-                >
-                    ↑
-                </button>
+                    <button
+                        onClick={() => changePriority(task.id, 'up')}
+                        type='button' className='btn btn-success'
+                        disabled={task.priority === priorities[priorities.length - 1]}
+                    >
+                        ↑
+                    </button>
 
-                <li className="list-group-item">priority: {task.priority}</li>
-                <button
-                    onClick={() => changePriority(task.id, 'down')}
-                    type='button'
-                    className='btn btn-success'
-                    disabled={task.priority===priorities[0]}
-                >
-                    ↓
-                </button>
+                    <li className="list-group-item">priority: {task.priority}</li>
+                    <button
+                        onClick={() => changePriority(task.id, 'down')}
+                        type='button'
+                        className='btn btn-success'
+                        disabled={task.priority === priorities[0]}
+                    >
+                        ↓
+                    </button>
 
-               </div>
+                </div>
                 <li className="list-group-item">status: {task.status}</li>
             </ul>
             <div className="card-body" style={{display: 'flex', justifyContent: 'center'}}>
@@ -46,22 +47,15 @@ const Card = (props) => {
                     ←
                 </button>
 
-                 <button
-                     type='button'
-                     className='btn btn-info'
-                 >
-                     Update
-                 </button>
 
+                <UpdateTaskModal task={task} />
 
-
-               <DeleteModal task={task}/>
-
+                <DeleteModal task={task}/>
 
 
                 <button onClick={() => moveTask('right', task.status, task.id)}
                         type='button' className='btn btn-success'
-                        disabled={statuses[statuses.length -1].status === task.status}>
+                        disabled={statuses[statuses.length - 1].status === task.status}>
                     →
                 </button>
 
@@ -78,6 +72,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     changePriority: (taskId, direction) => dispatch({type: 'CHANGE_PRIORITY', payload: {id: taskId, direction}}),
-    moveTask: (direction, taskStatus, taskId) => dispatch({type: 'MOVE_TASK', payload: {status:taskStatus, direction, id: taskId}})
+    moveTask: (direction, taskStatus, taskId) => dispatch({
+        type: 'MOVE_TASK',
+        payload: {status: taskStatus, direction, id: taskId}
+    })
 })
-export default connect(mapStateToProps, mapDispatchToProps) (Card);
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
